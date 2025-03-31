@@ -1,26 +1,40 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
+import "./HomeStyles.css"
 
-//include images into your bundle
-import rigoImage from "../../img/rigo-baby.jpg";
+let colors=["red","yellow","green"]
+
+const LightBulb=({color,activeLight,colorHandler})=>{
+	
+
+	return(
+		<div onClick={()=>colorHandler(color)} style={{background:color}} className={`lightbulb_body  ${activeLight===color ? "selected" :""} ` } />
+	)
+}
 
 //create your first component
 const Home = () => {
-	return (
-		<div className="text-center">
-            
+	const [activeLight,setActiveLight]=useState(null)
+	
 
-			<h1 className="text-center mt-5">Hello Rigo!</h1>
-			<p>
-				<img src={rigoImage} />
-			</p>
-			<a href="#" className="btn btn-success">
-				If you see this green button... bootstrap is working...
-			</a>
-			<p>
-				Made by{" "}
-				<a href="http://www.4geeksacademy.com">4Geeks Academy</a>, with
-				love!
-			</p>
+	const colorHandler=(newActiveColor)=>{
+		
+		setActiveLight(newActiveColor)
+	
+	}
+
+	return (
+		<div className="text-center d-flex justify-content-center flex-column align-items-center">
+				<div className="palo_de_semaforo" />
+
+			<div className="sem_body">
+		{
+			colors.map((elem,i)=>(
+				<LightBulb key={i} color={elem} activeLight={activeLight}  colorHandler={colorHandler}  />
+			))
+		}
+			</div>
+
+
 		</div>
 	);
 };
